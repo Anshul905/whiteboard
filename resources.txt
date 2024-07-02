@@ -1,0 +1,13 @@
+inspiration = https://excalidraw.com/
+
+
+https://www.w3schools.com/html/html5_canvas.asp
+
+https://roughjs.com/
+https://github.com/rough-stuff/rough/wiki
+https://github.com/rough-stuff/rough/wiki#generator
+https://github.com/rough-stuff/rough/wiki#options
+
+
+rectangle (x, y, width, height [, options])
+
