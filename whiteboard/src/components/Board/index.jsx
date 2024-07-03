@@ -21,10 +21,15 @@ function Board() {
 
   }, [] );
   
+  const handleBoardMouseDown = (e) => {
+    const clientX = e.clientX ;
+    const clientY = e.clientY ;
+    console.log(clientX,clientY);
+  }
 
   return(  
     <>
-      <canvas ref={canvasRef} /> 
+      <canvas ref={canvasRef} onMouseDown={ handleBoardMouseDown }/> 
     </>
   )
 
