@@ -1,20 +1,9 @@
 import React, { act } from 'react'
 import boardContext from './board-context'
-import { TOOL_ITEMS } from '../constants'
+import { TOOL_ITEMS , BOARD_ACTIONS } from '../constants'
+
 import { useReducer } from 'react'
-
-
-const boardReducer = ( state , action ) => {
-    switch (action.type) {
-        case BOARD_ACTIONS.CHANGE_TOOL:
-            return {
-                ...state ,
-                activeToolItem : action.payload.tool_item ,
-            }
-        default:
-            return state;
-    }
-}
+import boardReducer from './reducer/boardReducer'
 
 const BoardProvider = ( {children} ) => {
     
