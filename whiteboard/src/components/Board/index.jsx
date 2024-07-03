@@ -1,30 +1,40 @@
-import { useRef , useEffect } from "react"
+import { useRef , useEffect , useContext} from "react"
 import rough from 'roughjs';
+import boardContext from "../../store/board-context";
+
 
 function Board() {
   const canvasRef = useRef() ;
+  const {  elements , boardMouseDownHandler } = useContext(boardContext);
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    let roughCanvas = rough.canvas(canvas);
-    let generator = roughCanvas.generator;
-    let rect1 = generator.rectangle(10, 10, 100, 100 , {fill: 'blue' } );
-    let rect2 = generator.rectangle(10, 120, 100, 100, {fill: 'red' ,  stroke: 'green', strokeWidth: 3 ,roughness: 2 , });
-    let rect3 = generator.rectangle(10, 240, 100, 100, { bowing: 2, stroke: 'green', strokeWidth: 3 });
-    roughCanvas.draw(rect1);
-    // roughCanvas.draw(rect2);
-    // roughCanvas.draw(rect3);
-
-
-  }, [] );
+  useEffect( ()=>{
+    const canvas =  canvasRef.current ;
+    canvas.width =  window.innerWidth ;
+    canvas.height = window.innerHeight ;
+    console.log(canvas);
+  } , [] )
   
-  const handleBoardMouseDown = (e) => {
-    const clientX = e.clientX ;
-    const clientY = e.clientY ;
-    console.log(clientX,clientY);
+  useEffect( () => {
+    
+    const canvas = canvasRef.current
+    const canvasContex = canvas.getContext("2d") ;
+    canvasContex.save();
+    
+    let roughCanvas = rough.canvas(canvas);
+
+    elements.forEach( (ele) => {
+      roughCanvas.draw(ele.roughEle);
+    } );
+
+    return () => {
+      canvasContex.clearRect(0,0,canvas.width,canvas.height) ;
+    };
+
+  }, [ elements ] );
+  
+
+  const handleBoardMouseDown = (event) => {
+    boardMouseDownHandler(event)
   }
 
   return(  

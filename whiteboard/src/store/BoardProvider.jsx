@@ -5,6 +5,7 @@ import { TOOL_ITEMS , BOARD_ACTIONS } from '../constants'
 import { useReducer } from 'react'
 import boardReducer from './reducer/boardReducer'
 
+
 const BoardProvider = ( {children} ) => {
     
     const initialBoardState = {
@@ -13,7 +14,7 @@ const BoardProvider = ( {children} ) => {
     }
     const [ boardState, dispatchBoardAction ] = useReducer( boardReducer , initialBoardState )
 
-    const handleToolItemClick = (tool_item) =>{
+    const changeToolHandler  = (tool_item) =>{
         dispatchBoardAction( {
             type : BOARD_ACTIONS.CHANGE_TOOL , 
             payload : {
@@ -22,10 +23,25 @@ const BoardProvider = ( {children} ) => {
         } )
     }
 
+    const boardMouseDownHandler = (event) => {
+        console.log(event);
+        const { clientX , clientY } = event ;
+        
+        dispatchBoardAction( {
+            type : BOARD_ACTIONS.DRAW_DOWN , 
+            payload : {
+                clientX , 
+                clientY ,
+            } ,
+        } )
+    }
+
 
     const boardContextValue = {
         activeToolItem : boardState.activeToolItem,
-        handleToolItemClick,    
+        elements : boardState.elements, 
+        changeToolHandler,
+        boardMouseDownHandler,  
     }
     return (
     <>
