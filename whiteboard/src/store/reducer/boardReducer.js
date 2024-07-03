@@ -1,4 +1,4 @@
-import { TOOL_ITEMS , BOARD_ACTIONS } from "../../constants";
+import { TOOL_ITEMS , BOARD_ACTIONS , TOOL_ACTION_TYPES} from "../../constants";
 
 import rough from "roughjs/bin/rough"
 const gen = rough.generator();
@@ -23,6 +23,7 @@ const boardReducer = ( state , action ) => {
             }
             return {
                 ...state ,
+                toolActionType : TOOL_ACTION_TYPES.DRAWING , //update the action type 
                 elements : [ ...state.elements , newEle ] , //appending new element 
             }
         }

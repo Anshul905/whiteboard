@@ -1,11 +1,11 @@
 import { useRef , useEffect , useContext} from "react"
 import rough from 'roughjs';
 import boardContext from "../../store/board-context";
-
+import { TOOL_ACTION_TYPES } from "../../constants";
 
 function Board() {
   const canvasRef = useRef() ;
-  const {  elements , boardMouseDownHandler , boardMouseMoveHandler } = useContext(boardContext);
+  const {  elements , boardMouseDownHandler , boardMouseMoveHandler , toolActionType} = useContext(boardContext);
 
   useEffect( ()=>{
     const canvas =  canvasRef.current ;
@@ -37,7 +37,11 @@ function Board() {
     boardMouseDownHandler(event)
   }
   const handleBoardMouseMove = (event) => {
-    boardMouseMoveHandler(event)
+    if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
+      boardMouseMoveHandler(event)
+    }else{
+      console.log('You need to click first, then only you can draw something.');
+    }
   }
 
   return(  

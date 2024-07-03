@@ -1,6 +1,6 @@
 import React, { act } from 'react'
 import boardContext from './board-context'
-import { TOOL_ITEMS , BOARD_ACTIONS } from '../constants'
+import { TOOL_ITEMS , BOARD_ACTIONS, TOOL_ACTION_TYPES } from '../constants'
 
 import { useReducer } from 'react'
 import boardReducer from './reducer/boardReducer'
@@ -10,6 +10,7 @@ const BoardProvider = ( {children} ) => {
     
     const initialBoardState = {
         activeToolItem : TOOL_ITEMS.LINE , 
+        toolActionType : TOOL_ACTION_TYPES.NONE ,
         elements : [] ,
     }
     const [ boardState, dispatchBoardAction ] = useReducer( boardReducer , initialBoardState )
@@ -25,9 +26,11 @@ const BoardProvider = ( {children} ) => {
 
 
     const boardMouseDownHandler = (event) => {
-        console.log('Mouse click hua - ',event);
-        const { clientX , clientY } = event ;
-        
+
+        console.log('Mouse click hua');
+        // console.log(event);
+
+        const { clientX , clientY } = event ;        
         dispatchBoardAction( {
             type : BOARD_ACTIONS.DRAW_DOWN , 
             payload : {
@@ -38,7 +41,10 @@ const BoardProvider = ( {children} ) => {
     }
 
     const boardMouseMoveHandler  = (event) =>{
-        console.log('Mouse move kar rahe - ',event);
+
+        console.log('Mouse move ho raha hai');
+        // console.log(event);
+
         const { clientX , clientY } = event ;
         dispatchBoardAction( {
             type : BOARD_ACTIONS.DRAW_MOVE , 
@@ -46,12 +52,13 @@ const BoardProvider = ( {children} ) => {
                 clientX , 
                 clientY ,
             } ,
-        } )
+        } )    
     }
 
 
     const boardContextValue = {
         activeToolItem : boardState.activeToolItem,
+        toolActionType : boardState.toolActionType ,
         elements : boardState.elements, 
         changeToolHandler,
         boardMouseDownHandler,  
