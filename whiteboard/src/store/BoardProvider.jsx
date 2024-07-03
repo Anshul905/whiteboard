@@ -23,12 +23,25 @@ const BoardProvider = ( {children} ) => {
         } )
     }
 
+
     const boardMouseDownHandler = (event) => {
-        console.log(event);
+        console.log('Mouse click hua - ',event);
         const { clientX , clientY } = event ;
         
         dispatchBoardAction( {
             type : BOARD_ACTIONS.DRAW_DOWN , 
+            payload : {
+                clientX , 
+                clientY ,
+            } ,
+        } )
+    }
+
+    const boardMouseMoveHandler  = (event) =>{
+        console.log('Mouse move kar rahe - ',event);
+        const { clientX , clientY } = event ;
+        dispatchBoardAction( {
+            type : BOARD_ACTIONS.DRAW_MOVE , 
             payload : {
                 clientX , 
                 clientY ,
@@ -42,6 +55,7 @@ const BoardProvider = ( {children} ) => {
         elements : boardState.elements, 
         changeToolHandler,
         boardMouseDownHandler,  
+        boardMouseMoveHandler,
     }
     return (
     <>
