@@ -11,3 +11,7 @@ https://github.com/rough-stuff/rough/wiki#options
 
 rectangle (x, y, width, height [, options])
 
+
+https://www.npmjs.com/package/classnames
+https://www.npmjs.com/package/react-icons
+https://react-icons.github.io/react-icons/
