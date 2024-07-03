@@ -1,4 +1,5 @@
 import Board from "./components/Board";
+import Toolbar from "./components/Toolbar";
 
 function App() {
 
@@ -6,8 +7,9 @@ function App() {
     <>
       <div className="app">
 
-        <Board /> 
-        <h1>Whiteboard App</h1>
+        <Toolbar />
+        {/* <Board />  */}
+        {/* <h1>Whiteboard App</h1> */}
 
       </div>
     </>
