@@ -26,8 +26,6 @@ const BoardProvider = ( {children} ) => {
 
 
     const boardMouseDownHandler = (event) => {
-
-        console.log('Mouse click hua');
         // console.log(event);
 
         const { clientX , clientY } = event ;        
@@ -41,8 +39,6 @@ const BoardProvider = ( {children} ) => {
     }
 
     const boardMouseMoveHandler  = (event) =>{
-
-        console.log('Mouse move ho raha hai');
         // console.log(event);
 
         const { clientX , clientY } = event ;
@@ -56,6 +52,15 @@ const BoardProvider = ( {children} ) => {
     }
 
 
+    const boardMouseUpHandler  = (event) =>{
+        // console.log(event);
+
+        dispatchBoardAction( {
+            type : BOARD_ACTIONS.DRAW_UP , 
+        } )    
+    }
+
+
     const boardContextValue = {
         activeToolItem : boardState.activeToolItem,
         toolActionType : boardState.toolActionType ,
@@ -63,6 +68,7 @@ const BoardProvider = ( {children} ) => {
         changeToolHandler,
         boardMouseDownHandler,  
         boardMouseMoveHandler,
+        boardMouseUpHandler,
     }
     return (
     <>

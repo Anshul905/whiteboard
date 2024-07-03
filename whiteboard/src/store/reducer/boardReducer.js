@@ -39,6 +39,12 @@ const boardReducer = ( state , action ) => {
                 elements : elems , //updating last element
             }
         }
+        case BOARD_ACTIONS.DRAW_UP:{
+            return {
+                ...state ,
+                toolActionType : TOOL_ACTION_TYPES.NONE , //update the action type 
+            }
+        }
         default:
             return state;
     }
