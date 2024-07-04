@@ -1,7 +1,7 @@
 import { TOOL_ITEMS , BOARD_ACTIONS , TOOL_ACTION_TYPES} from "../../constants";
 
-import rough from "roughjs/bin/rough"
-const gen = rough.generator();
+
+import { createRoughElement } from "../../utils/element";
 
 const boardReducer = ( state , action ) => {
     switch (action.type) {
@@ -13,14 +13,7 @@ const boardReducer = ( state , action ) => {
         }
         case BOARD_ACTIONS.DRAW_DOWN:{
             const { clientX , clientY } = action.payload ; 
-            const newEle = {
-                id : state.elements.length ,
-                x1 : clientX ,
-                y1 : clientY ,
-                x2 : clientX ,
-                y2 : clientY ,
-                roughEle : gen.line(clientX,clientY,clientX,clientY),
-            }
+            const newEle = createRoughElement(state.elements.id,clientX,clientY,clientX,clientY,{type:state.activeToolItem});
             return {
                 ...state ,
                 toolActionType : TOOL_ACTION_TYPES.DRAWING , //update the action type 
@@ -31,9 +24,9 @@ const boardReducer = ( state , action ) => {
             const { clientX , clientY } = action.payload ; 
             const elems = [...state.elements]
             const ind = state.elements.length-1 ;
-            elems[ ind ].x2 = clientX
-            elems[ ind ].y2 = clientY
-            elems[ ind ].roughEle = gen.line( elems[ ind ].x1 , elems[ ind ].y1 , clientX , clientY ) ;
+            const {x1,y1} = elems[ind] 
+            const newEle = createRoughElement(ind, x1 , y1 ,clientX,clientY,{type:state.activeToolItem});
+            elems[ind] = newEle 
             return {
                 ...state ,
                 elements : elems , //updating last element
