@@ -60,3 +60,12 @@ use useLayoutEffect
 1. when you need to perform side effects that must be completed before the browser paints, 
 such as measuring the layout or synchronizing the UI based on layout changes.
 2. useLayoutEffect for scenarios where precise DOM measurements or manipulations are necessary immediately after rendering.
+
+
+
+linearPath (points [, options])
+Draws a set of lines connecting the specified points.
+points is an array of points. Each point is an array with 2 values - [x, y]
+roughCanvas.linearPath([[690, 10], [790, 20], [750, 120], [690, 100]]);
+
+Future Scope - Arrow length might look big when main line ( x1,y1 to x2,y2 ) length is small
