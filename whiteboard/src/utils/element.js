@@ -11,7 +11,7 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type } ) => {
         x2,
         y2,
     };
-    console.log(type);
+    // console.log(type);
     const options = { seed : id + 1 } //seed can't be 0 , id can be 0
     switch (type) {
         case TOOL_ITEMS.LINE:

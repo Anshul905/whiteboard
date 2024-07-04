@@ -35,3 +35,28 @@ else
 circle (x, y, diameter [, options])
 Draws a circle with the center at (x, y) and the specified diameter.
 
+
+when you do something that cause a visible changes to DOM ( style , content ) -> it might lead to a visible flickers using useEffect
+useEffect vs useLayoutEffect
+useEffect - Timing: 
+useEffect runs after the render is committed to the screen. 
+It doesn't block the browser paint.
+
+DOM update -> screen render -> task ( might lead to flicker issues )
+
+
+useLayoutEffect - Timing: 
+useLayoutEffect runs synchronously after the render but before the browser has a chance to paint. 
+This can block the paint until the effect has completed.
+
+DOM update -> task -> screen render 
+
+
+use useEffect
+1. for its non-blocking nature, and reserve
+2. Use this hook for most side effects, especially those that don't require immediate DOM manipulation or layout calculations.
+
+use useLayoutEffect
+1. when you need to perform side effects that must be completed before the browser paints, 
+such as measuring the layout or synchronizing the UI based on layout changes.
+2. useLayoutEffect for scenarios where precise DOM measurements or manipulations are necessary immediately after rendering.
