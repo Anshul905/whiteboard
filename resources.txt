@@ -1,9 +1,11 @@
 inspiration = https://excalidraw.com/
 
-
 https://www.w3schools.com/html/html5_canvas.asp
-
 https://roughjs.com/
+
+Clone this wiki locally
+https://github.com/rough-stuff/rough.wiki.git
+
 https://github.com/rough-stuff/rough/wiki
 https://github.com/rough-stuff/rough/wiki#generator
 https://github.com/rough-stuff/rough/wiki#options
@@ -22,3 +24,14 @@ An optional numeric value that sets the seed for creating random values used in 
 This is useful for creating the exact shape when re-generating with the same parameters. 
 The value of seed is between 1 and 2^31. 
 If seed is not defined, or set to 0, no seed is used when computing random values.
+
+
+
+ellipse (x, y, width, height [, options])
+Draws an ellipse with the center at (x, y) and the specified width and height.
+
+You can create using ellipse only 
+else
+circle (x, y, diameter [, options])
+Draws a circle with the center at (x, y) and the specified diameter.
+

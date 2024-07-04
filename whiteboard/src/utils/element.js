@@ -11,6 +11,7 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type } ) => {
         x2,
         y2,
     };
+    console.log(type);
     const options = { seed : id + 1 } //seed can't be 0 , id can be 0
     switch (type) {
         case TOOL_ITEMS.LINE:
@@ -18,6 +19,9 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type } ) => {
             return element 
             case TOOL_ITEMS.RECTANGLE:
                 element.roughEle =  gen.rectangle(x1,y1,x2-x1,y2-y1,options);
+                return element 
+            case TOOL_ITEMS.ELLIPSE:
+                element.roughEle =  gen.ellipse((x1+x2)/2,(y1+y2)/2,x2-x1,y2-y1,options);
                 return element 
             default:
                 throw new Error("Type not recognized") 

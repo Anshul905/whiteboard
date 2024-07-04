@@ -2,7 +2,7 @@ export const TOOL_ITEMS = {
     BRUSH: "BRUSH",
     LINE: "LINE",
     RECTANGLE: "RECTANGLE",
-    CIRCLE: "CIRCLE",
+    ELLIPSE: "ELLIPSE",
     ARROW: "ARROW",
     ERASER: "ERASER",
     TEXT: "TEXT",
