@@ -16,3 +16,9 @@ https://react-icons.github.io/react-icons/
 
 rectangle (x, y, width, height [, options])
 Draws a rectangle with the top-left corner at (x, y) with the specified width and height
+
+seed
+An optional numeric value that sets the seed for creating random values used in shape generation. 
+This is useful for creating the exact shape when re-generating with the same parameters. 
+The value of seed is between 1 and 2^31. 
+If seed is not defined, or set to 0, no seed is used when computing random values.
