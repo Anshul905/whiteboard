@@ -12,8 +12,8 @@ const boardReducer = ( state , action ) => {
             }
         }
         case BOARD_ACTIONS.DRAW_DOWN:{
-            const { clientX , clientY } = action.payload ; 
-            const newEle = createRoughElement(state.elements.id,clientX,clientY,clientX,clientY,{type:state.activeToolItem});
+            const { clientX , clientY , stroke , fill } = action.payload ; 
+            const newEle = createRoughElement(state.elements.id,clientX,clientY,clientX,clientY,{type:state.activeToolItem, stroke , fill});
             return {
                 ...state ,
                 toolActionType : TOOL_ACTION_TYPES.DRAWING , //update the action type 
@@ -24,8 +24,8 @@ const boardReducer = ( state , action ) => {
             const { clientX , clientY } = action.payload ; 
             const elems = [...state.elements]
             const ind = state.elements.length-1 ;
-            const {x1,y1} = elems[ind] 
-            const newEle = createRoughElement(ind, x1 , y1 ,clientX,clientY,{type:state.activeToolItem});
+            const {x1, y1 , stroke , fill} = elems[ind] 
+            const newEle = createRoughElement(ind, x1 , y1 ,clientX,clientY,{type:state.activeToolItem, stroke , fill});
             elems[ind] = newEle 
             return {
                 ...state ,

@@ -25,7 +25,7 @@ const BoardProvider = ( {children} ) => {
     }
 
 
-    const boardMouseDownHandler = (event) => {
+    const boardMouseDownHandler = (event,toolboxState) => {
         // console.log(event);
 
         const { clientX , clientY } = event ;        
@@ -34,6 +34,8 @@ const BoardProvider = ( {children} ) => {
             payload : {
                 clientX , 
                 clientY ,
+                stroke : toolboxState[boardState.activeToolItem]?.stroke,
+                fill : toolboxState[boardState.activeToolItem]?.fill,
             } ,
         } )
     }

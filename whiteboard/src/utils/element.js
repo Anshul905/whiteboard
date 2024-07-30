@@ -6,20 +6,29 @@ const gen = rough.generator();
 
 
 
-export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type } ) => {
+export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , fill } ) => {
     const element = {
         id,
         x1,
         y1,
         x2,
         y2,
+        type,
+        stroke,
+        fill,
     };
     // console.log(type);
+    // console.log(stroke,fill);
     const options = { 
-        seed : id + 1 //seed can't be 0 , id can be 0
-        
-        
+        seed : id + 1 , //seed can't be 0 , id can be 0 // shakiness while creating the tool
+        fillStyle : "solid"  
     } 
+    if(stroke){
+        options.stroke = stroke;
+    }
+    if(fill){
+        options.fill = fill;
+    }
     switch (type) {
         case TOOL_ITEMS.LINE:
             element.roughEle =  gen.line(x1,y1,x2,y2,options);

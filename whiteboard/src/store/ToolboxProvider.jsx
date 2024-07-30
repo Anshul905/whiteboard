@@ -1,7 +1,7 @@
 import React, { act } from 'react'
 import { useReducer } from 'react';
 import toolboxContext from "./toolbox-context";
-import { COLORS, TOOL_ITEMS } from '../constants';
+import { COLORS, TOOL_ITEMS, TOOLBOX_ACTIONS } from '../constants';
 
 const initialToolboxState = {
     [TOOL_ITEMS.LINE] : {
@@ -28,12 +28,18 @@ const initialToolboxState = {
 function toolboxReducer( state , action ) {
     // console.log(action.payload);
     switch (action.type) {
-        case "CHANGE_STROKE":
+        case TOOLBOX_ACTIONS.CHANGE_STROKE:{
             const newState = { ...state };
             newState[action.payload.tool].stroke = action.payload.stroke;
             return newState;
+        }
+        case TOOLBOX_ACTIONS.CHANGE_FILL:{
+            const newState = { ...state };
+            newState[action.payload.tool].fill = action.payload.fill;
+            return newState;
+        }
         default : 
-             return state;            
+            return state;             
     }
 }
 
@@ -42,22 +48,33 @@ const ToolboxProvider = ( {children} ) => {
     const [ toolboxState, dispatchToolboxAction ] = useReducer( toolboxReducer , initialToolboxState )
     
     
-    //updates tool's stroke
     const changeStrokeHandler = (tool,stroke) => {
         // console.log(tool , 'colors is' , stroke);
-
         dispatchToolboxAction({
-            type : "CHANGE_STROKE",
+            type : TOOLBOX_ACTIONS.CHANGE_STROKE,
             payload : {
                 tool,
                 stroke,
             },
         })
     }
-    
+
+    const changeFillHandler = (tool,fill) => {
+        // console.log(tool , 'colors is' , fill);
+        dispatchToolboxAction({
+            type : TOOLBOX_ACTIONS.CHANGE_FILL,
+            payload : {
+                tool,
+                fill,
+            },
+        })
+    }
+
+
     const toolboxContextValue = {
         toolboxState,
         changeStroke : changeStrokeHandler,
+        changeFill : changeFillHandler,
     }
 
     return <toolboxContext.Provider value={toolboxContextValue}>  
