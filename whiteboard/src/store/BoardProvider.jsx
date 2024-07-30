@@ -36,6 +36,7 @@ const BoardProvider = ( {children} ) => {
                 clientY ,
                 stroke : toolboxState[boardState.activeToolItem]?.stroke,
                 fill : toolboxState[boardState.activeToolItem]?.fill,
+                size : toolboxState[boardState.activeToolItem]?.size,
             } ,
         } )
     }

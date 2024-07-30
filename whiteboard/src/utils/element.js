@@ -6,7 +6,7 @@ const gen = rough.generator();
 
 
 
-export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , fill } ) => {
+export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , fill , size} ) => {
     const element = {
         id,
         x1,
@@ -16,6 +16,7 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , f
         type,
         stroke,
         fill,
+        size,
     };
     // console.log(type);
     // console.log(stroke,fill);
@@ -28,6 +29,9 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , f
     }
     if(fill){
         options.fill = fill;
+    }
+    if(size){
+        options.strokeWidth = size;
     }
     switch (type) {
         case TOOL_ITEMS.LINE:
