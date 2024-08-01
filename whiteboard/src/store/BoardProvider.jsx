@@ -9,7 +9,7 @@ import boardReducer from './reducer/boardReducer'
 const BoardProvider = ( {children} ) => {
     
     const initialBoardState = {
-        activeToolItem : TOOL_ITEMS.LINE , 
+        activeToolItem : TOOL_ITEMS.BRUSH , 
         toolActionType : TOOL_ACTION_TYPES.NONE ,
         elements : [] ,
     }

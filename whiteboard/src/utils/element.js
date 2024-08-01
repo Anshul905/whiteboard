@@ -1,5 +1,5 @@
 import { TOOL_ITEMS , BOARD_ACTIONS , TOOL_ACTION_TYPES, ARROW_LENGTH} from "../constants";
-import { getArrowHeadsCoordinates } from "./math";
+import { getArrowHeadsCoordinates, isPointCloseToLine } from "./math";
 
 import rough from "roughjs/bin/rough"
 const gen = rough.generator();
@@ -81,9 +81,63 @@ export const getSvgPathFromStroke = (stroke) => {
   };
 
   
-export function isCusrorNearElement( ele , clientX , clientY ) {
+// export function isCusrorNearElement( ele , clientX , clientY ) {
+//     // console.log('func');
+//     // console.log(ele.type);
+//     // return true;    
+// }
+
+export const isCusrorNearElement = (element, pointX, pointY) => {
     console.log('func');
     // console.log(ele.type);
-    return true;
+    // return true;
+    
+    
+    const { x1, y1, x2, y2, type } = element;
+    switch (type) {
+        case TOOL_ITEMS.LINE:
+        case TOOL_ITEMS.ARROW:
+            return isPointCloseToLine(x1,y1,x2,y2,pointX,pointY);
+        case TOOL_ITEMS.RECTANGLE:
+        case TOOL_ITEMS.ELLIPSE:
+            return (
+            isPointCloseToLine(x1, y1, x2, y1, pointX, pointY) ||
+            isPointCloseToLine(x2, y1, x2, y2, pointX, pointY) ||
+            isPointCloseToLine(x2, y2, x1, y2, pointX, pointY) ||
+            isPointCloseToLine(x1, y2, x1, y1, pointX, pointY)
+            );        
+        case TOOL_ITEMS.BRUSH:
+            const context = document.getElementById("canvas").getContext("2d");
+            return context.isPointInPath(element.path, pointX, pointY);
+        default:
+            throw new Error("Type not recognized");
+            return false;
+    }
 
-}
+
+
+    // const { x1, y1, x2, y2, type } = element;
+    // const context = document.getElementById("canvas").getContext("2d");
+    // switch (type) {
+    //   case TOOL_ITEMS.LINE:
+    //   case TOOL_ITEMS.ARROW:
+    //     return isPointCloseToLine(x1, y1, x2, y2, pointX, pointY);
+    //   case TOOL_ITEMS.RECTANGLE:
+    //   case TOOL_ITEMS.CIRCLE:
+    //     return (
+    //       isPointCloseToLine(x1, y1, x2, y1, pointX, pointY) ||
+    //       isPointCloseToLine(x2, y1, x2, y2, pointX, pointY) ||
+    //       isPointCloseToLine(x2, y2, x1, y2, pointX, pointY) ||
+    //       isPointCloseToLine(x1, y2, x1, y1, pointX, pointY)
+    //     );
+    //   case TOOL_ITEMS.BRUSH:
+    //     return context.isPointInPath(element.path, pointX, pointY);
+
+
+
+    //   default:
+    //     throw new Error("Type not recognized");
+    // }
+
+
+  };

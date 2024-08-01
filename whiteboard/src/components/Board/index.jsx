@@ -64,17 +64,22 @@ function Board() {
     //   console.log('You need to click first, then only you can draw something.');
     // }
 
-    if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
-      console.log('Mouse move ho raha hai - for drawing');
-      boardMouseMoveHandler(event)
-    }else if(toolActionType === TOOL_ACTION_TYPES.ERASING){
-        console.log('Mouse move ho raha hai - for erasing');
-        boardMouseMoveHandler(event)
-    }else{
+    // if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
+    //   console.log('Mouse move ho raha hai - for drawing');
+    //   boardMouseMoveHandler(event)
+    // }else if(toolActionType === TOOL_ACTION_TYPES.ERASING){
+    //     console.log('Mouse move ho raha hai - for erasing');
+    //     boardMouseMoveHandler(event)
+    // }else{
+    //   console.log('You need to click first, then only you can draw something.');
+    // }
+
+    if(toolActionType === TOOL_ACTION_TYPES.NONE){
       console.log('You need to click first, then only you can draw something.');
+    }else{
+        console.log('Mouse move ho raha hai');
+        boardMouseMoveHandler(event)
     }
-
-
   }
   const handleBoardMouseUp = (event) => {
     console.log('Mouse chhod diya');
@@ -83,7 +88,8 @@ function Board() {
 
   return(  
     <>
-      <canvas ref={canvasRef} 
+      <canvas ref={canvasRef}
+              id="canvas" 
               onMouseDown={ handleBoardMouseDown }
               onMouseMove={ handleBoardMouseMove }
               onMouseUp={handleBoardMouseUp}

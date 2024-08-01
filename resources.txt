@@ -75,3 +75,6 @@ Future Scope - Arrow length might look big when main line ( x1,y1 to x2,y2 ) len
 https://www.npmjs.com/package/perfect-freehand/v/1.0.6
 
 erase - erasing whole element
+line      - if sum of distance of 2 lines ( both ends to cursor ) === line distance --->  
+rectangle - get the coordinate of all 4 points and check with all 4 lines
+ellipse   -  if cursor is inside the virtual rectangle in which ellipse is drew , check for that rectangle

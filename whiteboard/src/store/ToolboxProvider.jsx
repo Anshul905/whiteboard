@@ -5,7 +5,7 @@ import { COLORS, TOOL_ITEMS, TOOLBOX_ACTIONS } from '../constants';
 
 const initialToolboxState = {
     [TOOL_ITEMS.BRUSH] : {
-        stroke : COLORS.BLACK,
+        stroke : COLORS.GREEN,
     },
     [TOOL_ITEMS.LINE] : {
         stroke : COLORS.BLACK,
@@ -17,12 +17,12 @@ const initialToolboxState = {
         size : 1 ,
     },
     [TOOL_ITEMS.ELLIPSE] : {
-        stroke : COLORS.BLACK,
+        stroke : COLORS.BLUE,
         fill : null,
         size : 1 ,
     },
     [TOOL_ITEMS.ARROW] : {
-        stroke : COLORS.BLACK,
+        stroke : COLORS.YELLOW,
         size : 1 ,
     },
 }
