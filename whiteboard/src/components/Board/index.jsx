@@ -57,12 +57,24 @@ function Board() {
     boardMouseDownHandler(event , toolboxState)
   }
   const handleBoardMouseMove = (event) => {
+    // if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
+    //   console.log('Mouse move ho raha hai');
+    //   boardMouseMoveHandler(event)
+    // }else{
+    //   console.log('You need to click first, then only you can draw something.');
+    // }
+
     if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
-      console.log('Mouse move ho raha hai');
+      console.log('Mouse move ho raha hai - for drawing');
       boardMouseMoveHandler(event)
+    }else if(toolActionType === TOOL_ACTION_TYPES.ERASING){
+        console.log('Mouse move ho raha hai - for erasing');
+        boardMouseMoveHandler(event)
     }else{
       console.log('You need to click first, then only you can draw something.');
     }
+
+
   }
   const handleBoardMouseUp = (event) => {
     console.log('Mouse chhod diya');

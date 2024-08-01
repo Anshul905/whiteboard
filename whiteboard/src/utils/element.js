@@ -81,3 +81,9 @@ export const getSvgPathFromStroke = (stroke) => {
   };
 
   
+export function isCusrorNearElement( ele , clientX , clientY ) {
+    console.log('func');
+    // console.log(ele.type);
+    return true;
+
+}

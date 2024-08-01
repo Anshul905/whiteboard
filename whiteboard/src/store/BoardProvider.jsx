@@ -25,10 +25,24 @@ const BoardProvider = ( {children} ) => {
     }
 
 
+    
     const boardMouseDownHandler = (event,toolboxState) => {
         // console.log(event);
 
         const { clientX , clientY } = event ;        
+
+        if( boardState.activeToolItem===TOOL_ITEMS.ERASER ){
+            // console.log('move down for erasing');
+            dispatchBoardAction( {
+                type : BOARD_ACTIONS.CHANGE_ACTION_TYPE ,
+                payload : {
+                    actionType  : TOOL_ACTION_TYPES.ERASING,
+                } 
+            } ) ;
+            return ;
+        }
+        // console.log('move down for others');
+
         dispatchBoardAction( {
             type : BOARD_ACTIONS.DRAW_DOWN , 
             payload : {
@@ -43,15 +57,27 @@ const BoardProvider = ( {children} ) => {
 
     const boardMouseMoveHandler  = (event) =>{
         // console.log(event);
-
         const { clientX , clientY } = event ;
-        dispatchBoardAction( {
-            type : BOARD_ACTIONS.DRAW_MOVE , 
-            payload : {
-                clientX , 
-                clientY ,
-            } ,
-        } )    
+
+        if( boardState.toolActionType==TOOL_ACTION_TYPES.ERASING ){
+            console.log('moving for erasing');
+            dispatchBoardAction( {
+                type : BOARD_ACTIONS.ERASE , 
+                payload : {
+                    clientX , 
+                    clientY ,
+                } ,
+            } )    
+        }else if( boardState.toolActionType==TOOL_ACTION_TYPES.DRAWING ){
+            console.log('moving for dawing');
+            dispatchBoardAction( {
+                type : BOARD_ACTIONS.DRAW_MOVE , 
+                payload : {
+                    clientX , 
+                    clientY ,
+                } ,
+            } )    
+        }
     }
 
 
@@ -59,7 +85,11 @@ const BoardProvider = ( {children} ) => {
         // console.log(event);
 
         dispatchBoardAction( {
-            type : BOARD_ACTIONS.DRAW_UP , 
+            // type : BOARD_ACTIONS.DRAW_UP , 
+            type : BOARD_ACTIONS.CHANGE_ACTION_TYPE ,
+            payload : {
+                actionType  : TOOL_ACTION_TYPES.NONE,
+            } 
         } )    
     }
 

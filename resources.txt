@@ -73,3 +73,5 @@ Future Scope - Arrow length might look big when main line ( x1,y1 to x2,y2 ) len
 
 
 https://www.npmjs.com/package/perfect-freehand/v/1.0.6
+
+erase - erasing whole element

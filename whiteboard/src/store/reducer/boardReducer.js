@@ -1,8 +1,9 @@
 import { TOOL_ITEMS , BOARD_ACTIONS , TOOL_ACTION_TYPES} from "../../constants";
 
 
-import { createRoughElement , getSvgPathFromStroke} from "../../utils/element";
+import { createRoughElement , getSvgPathFromStroke , isCusrorNearElement } from "../../utils/element";
 import getStroke from "perfect-freehand";
+
 
 
 
@@ -12,6 +13,13 @@ const boardReducer = ( state , action ) => {
             return {
                 ...state ,
                 activeToolItem : action.payload.tool_item , //updating active tool 
+            }
+        }
+        case BOARD_ACTIONS.CHANGE_ACTION_TYPE:{
+            // console.log('change action type ');
+            return {
+                ...state ,
+                toolActionType : action.payload.actionType , //updating action type 
             }
         }
         case BOARD_ACTIONS.DRAW_DOWN:{
@@ -51,14 +59,20 @@ const boardReducer = ( state , action ) => {
                     }
                 default:
                     throw new Error("Type not recognized");
-                    break;
             }
 
         }
-        case BOARD_ACTIONS.DRAW_UP:{
+        case BOARD_ACTIONS.ERASE :{
+            const { clientX , clientY } = action.payload ; 
+            let elems = [...state.elements]
+            
+            elems = elems.filter( (ele)  => {
+                return !isCusrorNearElement(ele,clientX,clientY);
+            })
+
             return {
                 ...state ,
-                toolActionType : TOOL_ACTION_TYPES.NONE , //update the action type 
+                elements : elems, // updating the element after erasing 
             }
         }
         default:
