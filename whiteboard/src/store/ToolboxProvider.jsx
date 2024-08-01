@@ -4,6 +4,9 @@ import toolboxContext from "./toolbox-context";
 import { COLORS, TOOL_ITEMS, TOOLBOX_ACTIONS } from '../constants';
 
 const initialToolboxState = {
+    [TOOL_ITEMS.BRUSH] : {
+        stroke : COLORS.BLACK,
+    },
     [TOOL_ITEMS.LINE] : {
         stroke : COLORS.BLACK,
         size : 1 ,

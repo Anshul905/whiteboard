@@ -69,3 +69,7 @@ points is an array of points. Each point is an array with 2 values - [x, y]
 roughCanvas.linearPath([[690, 10], [790, 20], [750, 120], [690, 100]]);
 
 Future Scope - Arrow length might look big when main line ( x1,y1 to x2,y2 ) length is small
+
+
+
+https://www.npmjs.com/package/perfect-freehand/v/1.0.6
