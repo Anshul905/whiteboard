@@ -78,3 +78,6 @@ erase - erasing whole element
 line or arrow  - if sum of distance of 2 lines ( both ends to cursor ) === line distance --->  
 rectangle - get the coordinate of all 4 points and check with all 4 lines
 ellipse   -  if cursor is inside the virtual rectangle in which ellipse is drew , check for that rectangle
+
+undo - redo ,  How ?? 
+board's state 

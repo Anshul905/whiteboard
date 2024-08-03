@@ -12,6 +12,9 @@ const BoardProvider = ( {children} ) => {
         activeToolItem : TOOL_ITEMS.BRUSH , 
         toolActionType : TOOL_ACTION_TYPES.NONE ,
         elements : [] ,
+        history : [[]],
+        index : 0 ,
+    
     }
     const [ boardState, dispatchBoardAction ] = useReducer( boardReducer , initialBoardState )
 
@@ -59,6 +62,8 @@ const BoardProvider = ( {children} ) => {
         } )
     }
 
+
+
     const boardMouseMoveHandler  = (event) =>{
         // console.log(event);
         if( boardState.toolActionType==TOOL_ACTION_TYPES.WRITING ) return ;
@@ -92,6 +97,13 @@ const BoardProvider = ( {children} ) => {
 
         if( boardState.toolActionType==TOOL_ACTION_TYPES.WRITING ) return ;
 
+        //was drawing and mouse up -> element is created, new board state is crated  
+        if( boardState.toolActionType==TOOL_ACTION_TYPES.DRAWING ){
+            dispatchBoardAction( {
+                type : BOARD_ACTIONS.DRAW_UP , 
+            } )    
+        }
+
         dispatchBoardAction( {
             // type : BOARD_ACTIONS.DRAW_UP , 
             type : BOARD_ACTIONS.CHANGE_ACTION_TYPE ,
@@ -109,7 +121,19 @@ const BoardProvider = ( {children} ) => {
                 text,
              }
         })
-        
+    }
+
+
+    const boardUndoHandler = () => {
+        dispatchBoardAction({
+            type : BOARD_ACTIONS.UNDO,
+        })
+    }
+
+    const boardRedoHandler = () => {
+        dispatchBoardAction({
+            type : BOARD_ACTIONS.REDO,
+        })        
     }
 
     const boardContextValue = {
@@ -121,6 +145,8 @@ const BoardProvider = ( {children} ) => {
         boardMouseMoveHandler,
         boardMouseUpHandler,
         textAreaBlurHandler,
+        undo : boardUndoHandler,
+        redo : boardRedoHandler,
     }
     return (
     <>
