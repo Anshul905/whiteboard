@@ -5,7 +5,7 @@ import cx from "classnames"
 
 import { TOOL_ITEMS } from '../../constants';
 
-import { FaSlash , FaRegCircle , FaArrowRight , FaPaintBrush , FaEraser } from "react-icons/fa";
+import { FaSlash , FaRegCircle , FaArrowRight , FaPaintBrush , FaEraser , FaFont } from "react-icons/fa";
 import { LuRectangleHorizontal } from "react-icons/lu";
 
 import boardContext from '../../store/board-context';
@@ -54,6 +54,12 @@ const Toolbar = () => {
                 onClick={ () => changeToolHandler(TOOL_ITEMS.ERASER) }
             >
               <FaEraser/>
+            </div>
+
+            <div className={ cx(classes.toolItem , { [classes.active] : activeToolItem===TOOL_ITEMS.TEXT }) }
+                onClick={ () => changeToolHandler(TOOL_ITEMS.TEXT) }
+            >
+              <FaFont/>
             </div>
 
 

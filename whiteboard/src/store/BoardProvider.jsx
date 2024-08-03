@@ -29,8 +29,12 @@ const BoardProvider = ( {children} ) => {
     const boardMouseDownHandler = (event,toolboxState) => {
         // console.log(event);
 
-        const { clientX , clientY } = event ;        
+        if( boardState.toolActionType === TOOL_ACTION_TYPES.WRITING ) return ;
 
+
+        const { clientX , clientY } = event ;    
+
+ 
         if( boardState.activeToolItem===TOOL_ITEMS.ERASER ){
             // console.log('move down for erasing');
             dispatchBoardAction( {
@@ -57,8 +61,10 @@ const BoardProvider = ( {children} ) => {
 
     const boardMouseMoveHandler  = (event) =>{
         // console.log(event);
-        const { clientX , clientY } = event ;
+        if( boardState.toolActionType==TOOL_ACTION_TYPES.WRITING ) return ;
 
+
+        const { clientX , clientY } = event ; 
         if( boardState.toolActionType==TOOL_ACTION_TYPES.ERASING ){
             console.log('moving for erasing');
             dispatchBoardAction( {
@@ -84,6 +90,8 @@ const BoardProvider = ( {children} ) => {
     const boardMouseUpHandler  = (event) =>{
         // console.log(event);
 
+        if( boardState.toolActionType==TOOL_ACTION_TYPES.WRITING ) return ;
+
         dispatchBoardAction( {
             // type : BOARD_ACTIONS.DRAW_UP , 
             type : BOARD_ACTIONS.CHANGE_ACTION_TYPE ,
@@ -93,6 +101,16 @@ const BoardProvider = ( {children} ) => {
         } )    
     }
 
+    const textAreaBlurHandler = ( text , toolboxState ) => {
+        console.log('blur');
+        dispatchBoardAction({
+            type:BOARD_ACTIONS.CHANGE_TEXT,
+            payload:{
+                text,
+             }
+        })
+        
+    }
 
     const boardContextValue = {
         activeToolItem : boardState.activeToolItem,
@@ -102,6 +120,7 @@ const BoardProvider = ( {children} ) => {
         boardMouseDownHandler,  
         boardMouseMoveHandler,
         boardMouseUpHandler,
+        textAreaBlurHandler,
     }
     return (
     <>

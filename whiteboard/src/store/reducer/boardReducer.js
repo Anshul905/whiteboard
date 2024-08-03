@@ -1,7 +1,7 @@
 import { TOOL_ITEMS , BOARD_ACTIONS , TOOL_ACTION_TYPES} from "../../constants";
 
 
-import { createRoughElement , getSvgPathFromStroke , isCusrorNearElement } from "../../utils/element";
+import { createElement , getSvgPathFromStroke , isCusrorNearElement } from "../../utils/element";
 import getStroke from "perfect-freehand";
 
 
@@ -24,10 +24,10 @@ const boardReducer = ( state , action ) => {
         }
         case BOARD_ACTIONS.DRAW_DOWN:{
             const { clientX , clientY , stroke , fill , size } = action.payload ; 
-            const newEle = createRoughElement(state.elements.id,clientX,clientY,clientX,clientY,{type:state.activeToolItem, stroke , fill , size});
+            const newEle = createElement(state.elements.id,clientX,clientY,clientX,clientY,{type:state.activeToolItem, stroke , fill , size});
             return {
                 ...state ,
-                toolActionType : TOOL_ACTION_TYPES.DRAWING , //update the action type 
+                toolActionType :  state.activeToolItem === TOOL_ITEMS.TEXT ?  TOOL_ACTION_TYPES.WRITING : TOOL_ACTION_TYPES.DRAWING , //update the action type 
                 elements : [ ...state.elements , newEle ] , //appending new element 
             }
         }
@@ -43,7 +43,7 @@ const boardReducer = ( state , action ) => {
                 case TOOL_ITEMS.ELLIPSE:
                 case TOOL_ITEMS.ARROW:{
                     const {x1, y1 , stroke , fill, size } = elems[ind] 
-                    const newEle = createRoughElement(ind, x1 , y1 ,clientX,clientY,{type:state.activeToolItem, stroke , fill , size});
+                    const newEle = createElement(ind, x1 , y1 ,clientX,clientY,{type:state.activeToolItem, stroke , fill , size});
                     elems[ind] = newEle 
                     return {
                         ...state ,
@@ -73,6 +73,16 @@ const boardReducer = ( state , action ) => {
             return {
                 ...state ,
                 elements : elems, // updating the element after erasing 
+            }
+        }
+        case BOARD_ACTIONS.CHANGE_TEXT :{
+            const ind = state.elements.length -1 ;
+            let elems = [...state.elements]
+            elems[ind].text = action.payload.text ;
+            return {
+                ...state ,
+                toolActionType:TOOL_ACTION_TYPES.NONE,
+                elements : elems, // updating the element after updating text 
             }
         }
         default:

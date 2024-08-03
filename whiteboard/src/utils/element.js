@@ -7,7 +7,7 @@ const gen = rough.generator();
 import getStroke from "perfect-freehand";
 
 
-export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , fill , size} ) => {
+export const createElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , fill , size} ) => {
     const element = {
         id,
         x1,
@@ -59,6 +59,9 @@ export const createRoughElement = ( id , x1 , y1 , x2 , y2 , { type , stroke , f
                 const pointsPath = [ [x1,y1] , [x2,y2] , [x3,y3] , [x2,y2] , [x4,y4] ] 
                 element.roughEle =  gen.linearPath( pointsPath , options);
                 return element 
+            case TOOL_ITEMS.TEXT:
+                element.text = "";
+                return element; 
             default:
             throw new Error("Type not recognized") 
     }    

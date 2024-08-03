@@ -25,6 +25,10 @@ const initialToolboxState = {
         stroke : COLORS.YELLOW,
         size : 1 ,
     },
+    [TOOL_ITEMS.TEXT] : {
+        stroke : COLORS.BLACK,
+        size : 32 ,
+    },
 }
 
 

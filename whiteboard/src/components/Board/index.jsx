@@ -3,10 +3,12 @@ import rough from 'roughjs';
 import boardContext from "../../store/board-context";
 import { TOOL_ACTION_TYPES , TOOL_ITEMS } from "../../constants";
 import toolboxContext from "../../store/toolbox-context";
+import classes from "./index.module.css"
 
 function Board() {
   const canvasRef = useRef() ;
-  const {  elements , boardMouseDownHandler , boardMouseMoveHandler , toolActionType , boardMouseUpHandler} = useContext(boardContext);
+  const textAreaRef = useRef()
+  const {  elements , boardMouseDownHandler , boardMouseMoveHandler , toolActionType , boardMouseUpHandler , textAreaBlurHandler} = useContext(boardContext);
 
   const { toolboxState } = useContext(toolboxContext)
 
@@ -39,8 +41,16 @@ function Board() {
             canvasContex.fill(ele.path);
             canvasContex.restore();
             break;
+        case TOOL_ITEMS.TEXT:
+          console.log("text");
+          canvasContex.textBaseline = "top" ; 
+          canvasContex.font = `${ele.size}px Caveat` ;
+          canvasContex.fillStyle = ele.stroke ;
+          canvasContex.fillText(ele.text,ele.x1,ele.y1);
+          canvasContex.restore();
+          break;
         default:
-            throw new Error("Type not recognized");
+          throw new Error("Type not recognized");
       }
 
     } );
@@ -52,28 +62,23 @@ function Board() {
   }, [ elements ] );
   
 
+  useEffect(() => {
+    const textArea = textAreaRef.current ;
+    if( toolActionType === TOOL_ACTION_TYPES.WRITING ){
+      setTimeout(() => {
+        textArea.focus() ; 
+      }, 0);
+    }
+
+  }, [toolActionType])
+  
+
+
   const handleBoardMouseDown = (event) => {
     console.log('Mouse click hua');
     boardMouseDownHandler(event , toolboxState)
   }
   const handleBoardMouseMove = (event) => {
-    // if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
-    //   console.log('Mouse move ho raha hai');
-    //   boardMouseMoveHandler(event)
-    // }else{
-    //   console.log('You need to click first, then only you can draw something.');
-    // }
-
-    // if(toolActionType === TOOL_ACTION_TYPES.DRAWING){
-    //   console.log('Mouse move ho raha hai - for drawing');
-    //   boardMouseMoveHandler(event)
-    // }else if(toolActionType === TOOL_ACTION_TYPES.ERASING){
-    //     console.log('Mouse move ho raha hai - for erasing');
-    //     boardMouseMoveHandler(event)
-    // }else{
-    //   console.log('You need to click first, then only you can draw something.');
-    // }
-
     if(toolActionType === TOOL_ACTION_TYPES.NONE){
       console.log('You need to click first, then only you can draw something.');
     }else{
@@ -88,12 +93,28 @@ function Board() {
 
   return(  
     <>
+      { 
+        toolActionType == TOOL_ACTION_TYPES.WRITING && <textarea
+        type="text"
+        ref={textAreaRef}
+        className={classes.textElementBox}
+        style={
+          {
+            top:elements[elements.length-1].y1,
+            left:elements[elements.length-1].x1,
+            color: elements[elements.length-1]?.stroke,
+            fontSize: `${elements[elements.length-1]?.size}px`,
+          }
+        }
+        onBlur={ (event) => textAreaBlurHandler(event.target.value , toolboxState) }
+        />  
+      }
       <canvas ref={canvasRef}
-              id="canvas" 
-              onMouseDown={ handleBoardMouseDown }
-              onMouseMove={ handleBoardMouseMove }
-              onMouseUp={handleBoardMouseUp}
-            /> 
+        id="canvas" 
+        onMouseDown={ handleBoardMouseDown }
+        onMouseMove={ handleBoardMouseMove }
+        onMouseUp={handleBoardMouseUp}
+      /> 
     </>
   )
 
