@@ -76,7 +76,7 @@ const ToolBox = () => {
                         Object.keys(COLORS).map( (k) => {
                             return (
                                 <div key={k} 
-                                    className={cx(classes.colorBox , 
+                                    className={cx(classes.colorBox ,  
                                         {[classes.activeColorBox]:fillColor==COLORS[k]},
                                     )} 
                                     style={{background:COLORS[k]}}

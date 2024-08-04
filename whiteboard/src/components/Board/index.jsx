@@ -8,7 +8,7 @@ import classes from "./index.module.css"
 function Board() {
   const canvasRef = useRef() ;
   const textAreaRef = useRef()
-  const {  elements , boardMouseDownHandler , boardMouseMoveHandler , toolActionType , boardMouseUpHandler , textAreaBlurHandler} = useContext(boardContext);
+  const {  elements , boardMouseDownHandler , boardMouseMoveHandler , toolActionType , boardMouseUpHandler , textAreaBlurHandler , undo , redo} = useContext(boardContext);
 
   const { toolboxState } = useContext(toolboxContext)
 
@@ -18,6 +18,25 @@ function Board() {
     canvas.height = window.innerHeight ;
     console.log(canvas);
   } , [] )
+  
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if( event.ctrlKey && event.key === "z" ){
+        undo();
+      }else if( event.ctrlKey && event.key === "y" ){
+        redo();
+      }
+    }
+    document.addEventListener("keydown",handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown",handleKeyDown);
+    };
+
+  }, [ undo , redo ]);
+
+
   
   useLayoutEffect( () => {
     
@@ -72,6 +91,7 @@ function Board() {
 
   }, [toolActionType])
   
+
 
 
   const handleBoardMouseDown = (event) => {
