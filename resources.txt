@@ -83,3 +83,10 @@ undo - redo ,  How ??
 board's state in history and index 
 
 erase text ??
+measureText method and context 
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/measureText
+
+download ??
+toDataURL
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL
+https://stackoverflow.com/questions/10673122/how-to-save-canvas-as-an-image-with-canvas-todataurl
