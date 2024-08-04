@@ -113,7 +113,7 @@ const BoardProvider = ( {children} ) => {
         } )    
     }
 
-    const textAreaBlurHandler = ( text , toolboxState ) => {
+    const textAreaBlurHandler = ( text ) => {
         console.log('blur');
         dispatchBoardAction({
             type:BOARD_ACTIONS.CHANGE_TEXT,

@@ -126,7 +126,7 @@ function Board() {
             fontSize: `${elements[elements.length-1]?.size}px`,
           }
         }
-        onBlur={ (event) => textAreaBlurHandler(event.target.value , toolboxState) }
+        onBlur={ (event) => textAreaBlurHandler(event.target.value ) }
         />  
       }
       <canvas ref={canvasRef}
